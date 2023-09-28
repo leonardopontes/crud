@@ -43,37 +43,38 @@ export const Td = styled.td`
   }
 `;
 
-// Componente 'Grid' que exibe uma lista de usuários. // Propriedade users - que vai ser o que vai vim do banco.
-const Grid = ({ users, setUsers, setOnEdit }) => {
-  // Função para lidar com a edição de um usuário.
-  const handleEdit = (item) => {
-     // Define o usuário a ser editado usando 'setOnEdit'.
-    setOnEdit(item);
-  };
 
-  // Função para lidar com a exclusão de um usuário.
-  const handleDelete = async (id) => {
-    // Envia uma requisição DELETE para remover o usuário do servidor.
-    await axios
-      .delete("http://localhost:8800/" + id)
-      // - Para validar se deu certo, then que é uma "promise" que vai receber o objeto "data", que é basicamente o texto 'formulado' no back end que o usuário 
-      // foi deletado com sucesso (user.js)
-      .then(({ data }) => {
-        // Atualiza a lista de usuários excluindo o usuário removido.
-        // - Como é um "delete", ao em vez de recarregar o banco novamente, será criado a constante newArray, filtrando os usuários que foi recebido na 
-        // "const Grid", usuário que tem o id diferente do que foi deletado, então vai retornar todos os outros usuários
-        const newArray = users.filter((user) => user.id !== id);
+// Passar 3 propriedades que será utilidada adiante como retorno no Grid: usuários, sob Usuários, definir edição.
 
-        setUsers(newArray);
-        // Exibe uma mensagem de sucesso com 'toast'.
-        toast.success(data);
-      })
-      // Em caso de erro, exibe uma mensagem de erro com 'toast'.
-      .catch(({ data }) => toast.error(data));
 
-    // Limpa o estado de 'onEdit' para sair do modo de edição.  
-    setOnEdit(null);
-  };
+  // Lidar com edição de um item, atribuindo como parâmetro.
+
+
+    // Atribuir o estado de definir edição sob item.
+
+
+  // Lidar com exclusão. de forma assíncrona, utilizando id como parâmetro.
+
+
+    // Pedir pra aguardar enquanto axios deleta no localhost (mas) com base no id...
+
+
+      // Se der certo, então, atribuir data (dados) como parâmetro
+
+
+        // Atribuir com nome de "novo Array". Com usuários sendo filtrados e usuário como parâmetro, usuário como parâmetro com id, diferente precisamente do id
+
+
+        // Atribuir sob Usuários o "novo Array"
+
+        // Exibir utilizando a biblioteca toast, uma mensagem de sucesso, com data (dados).
+
+
+      // Em caso de erro, pegar dados passando como parâmetro, exibir com toast uma mensagem de erro, com os dados.
+
+
+    // Pegar o estado de 'definir edição', e atribuir nulo.  
+
 
   return (
     <Table>

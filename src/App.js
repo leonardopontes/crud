@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
+// Estiliza um componente 'div' usando Styled Components.
 const Container = styled.div`
   width: 100%;
   max-width: 800px;
@@ -17,32 +18,43 @@ const Container = styled.div`
   gap: 10px;
 `;
 
+// Estiliza um componente de título 'h2' usando Styled Components.
 const Title = styled.h2``;
 
 function App() {
+  // Define o estado inicial para usuários e a edição de usuário.
   const [users, setUsers] = useState([]);
   const [onEdit, setOnEdit] = useState(null);
 
+  // Função assíncrona para obter os usuários do servidor. // Já que vai ter que esperar o Banco de Dados retornar esses dados
   const getUsers = async () => {
     try {
+      // esperar o axios fazer um get no localhost
       const res = await axios.get("http://localhost:8800");
+      // sort -> 'sortear pelo nome' por ordem alfabética. 'a, b' com parâmetro de sort e verifica se 'a.nome' é maior que 'b.nome' e vai retornar 1, se não -1
       setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
     } catch (error) {
+      // se der algum erro, sera exibido
       toast.error(error);
     }
   };
 
+  // Efeito para chamar a função 'getUsers' quando o componente é montado e 'setUsers' muda.
   useEffect(() => {
     getUsers();
-  }, [setUsers]);
+  }, [setUsers]); // recarregando sempre que 'setar' um usuário
 
   return (
     <>
+      {/* Renderiza um contêiner com um título 'USUÁRIOS', um componente de formulário e uma grade de usuários. */}
       <Container>
         <Title>USUÁRIOS</Title>
+        {/* Passa props para o componente de formulário. */}
         <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers} />
+        {/* Passa props para o componente de grade de usuários. */}
         <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
       </Container>
+      {/* Renderiza um contêiner para mensagens de toast. */}
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT} />
       <GlobalStyle />
     </>

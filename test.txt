@@ -1,0 +1,3 @@
+user.js
+
+1- Pega usuários consultando o Banco de Dados
